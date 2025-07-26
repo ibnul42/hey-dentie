@@ -1,13 +1,11 @@
-import Home from "./pages/Home"
-
+import Home from "./pages/Home";
 
 function App() {
-
   return (
-    <div className="">
+    <div className="h-screen overflow-x-hidden overflow-y-auto">
       <Home />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

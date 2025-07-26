@@ -25,7 +25,7 @@ const Home = () => {
   };
 
   return (
-    <div className="home">
+    <div className="home h-full">
       <header className="header text-center">
         <img src={logo} alt="Hey Dentie Logo" className="logo mx-auto mb-4" />
         <h1 className="text-2xl font-bold text-teal-700">
