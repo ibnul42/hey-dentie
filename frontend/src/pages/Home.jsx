@@ -17,8 +17,8 @@ const Home = () => {
         return <DailyTip />;
       case "track":
         return <TrackHealth />;
-      case "dentist":
-        return <AskDentist />;
+      // case "dentist":
+      //   return <AskDentist />;
       default:
         return null;
     }
@@ -67,7 +67,7 @@ const Home = () => {
         >
           📈 Track My Health
         </button>
-        <button
+        {/* <button
           onClick={() => setActiveComponent("dentist")}
           className={`px-4 py-2 rounded ${
             activeComponent === "dentist"
@@ -76,7 +76,7 @@ const Home = () => {
           }`}
         >
           👨‍⚕️ Ask a Dentist
-        </button>
+        </button> */}
       </div>
 
       <div className="mt-8">{renderComponent()}</div>

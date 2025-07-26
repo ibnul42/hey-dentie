@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../lib/AuthContext";
 
 const Chat = () => {
   const [question, setQuestion] = useState("");
@@ -7,6 +9,8 @@ const Chat = () => {
   const [history, setHistory] = useState([]);
 
   const inputRef = useRef(null);
+
+  const { token } = useContext(AuthContext);
 
   // Load chat history from localStorage
   useEffect(() => {
@@ -36,12 +40,14 @@ const Chat = () => {
     try {
       const response = await fetch("http://localhost:5000/ask", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }), // add token if available
+        },
         body: JSON.stringify({ question }),
       });
 
       const data = await response.json();
-      console.log("🧠 OpenAI response:", data);
 
       let finalAnswer = "";
 
@@ -57,7 +63,6 @@ const Chat = () => {
       saveToHistory(question, finalAnswer);
       setQuestion("");
     } catch (error) {
-      console.error("❌ Error from OpenAI or Backend:", error);
       setAnswer("Something went wrong. Please try again.");
     }
 
@@ -74,7 +79,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-center">
+    <div className="max-w-xl mx-auto mt-12 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-center">
       <h2 className="text-xl font-semibold mb-4">🧠 Ask Dentie</h2>
 
       <input

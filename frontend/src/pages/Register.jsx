@@ -31,8 +31,7 @@ const Register = () => {
           navigate("/"); // Redirect to homepage
         }
       } catch (err) {
-        console.error("Token verification failed:", err);
-        // Stay on register page if token invalid
+        // console.error("Token verification failed:", err);
       }
     };
 
@@ -68,7 +67,6 @@ const Register = () => {
         setErrorMsg(data.message || "Registration failed");
       }
     } catch (err) {
-      console.error("Registration error:", err);
       setErrorMsg("Something went wrong.");
     }
   };

@@ -29,7 +29,6 @@ const Login = () => {
         setErrorMsg(data.message || "Invalid credentials");
       }
     } catch (err) {
-      console.error("Login error:", err);
       setErrorMsg("Something went wrong.");
     }
   };
@@ -64,7 +63,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 rounded"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 rounded cursor-pointer"
           >
             Login
           </button>
