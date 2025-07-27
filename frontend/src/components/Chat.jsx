@@ -169,7 +169,7 @@ const Chat = () => {
       </div>
 
       {answer && (
-        <div className="mt-4 text-left bg-white p-3 rounded-md border border-teal-200 shadow-sm">
+        <div className="mt-8 text-left bg-white p-3 rounded-md border border-teal-200 shadow-sm">
           <p>
             <strong>Dentie:</strong> {answer}
           </p>
