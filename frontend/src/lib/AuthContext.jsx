@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const res = await fetch("http://localhost:5000/verify-token", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/verify-token`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
         const data = await res.json();

@@ -17,7 +17,7 @@ const Register = () => {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:5000/verify-token", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/verify-token`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -47,7 +47,7 @@ const Register = () => {
     setErrorMsg("");
 
     try {
-      const res = await fetch("http://localhost:5000/register", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

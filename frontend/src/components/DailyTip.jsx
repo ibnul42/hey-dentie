@@ -9,7 +9,7 @@ const DailyTip = () => {
     setLoading(true);
     setError(false);
     try {
-      const response = await fetch("http://localhost:5000/dailytip");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/dailytip`);
       const data = await response.json();
       setTip(data.tip || "No tip available.");
     } catch (err) {

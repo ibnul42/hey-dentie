@@ -22,7 +22,7 @@ const TrackHealth = () => {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:5000/tracker", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/tracker`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -61,7 +61,7 @@ const TrackHealth = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/tracker", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/tracker`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
