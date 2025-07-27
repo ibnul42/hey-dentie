@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeComponent, setActiveComponent] = useState("chat");
 
   // On app load, check for token in localStorage and verify
   useEffect(() => {
@@ -18,9 +19,12 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/verify-token`, {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/verify-token`,
+          {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          }
+        );
         const data = await res.json();
 
         if (res.ok && data.user) {
@@ -66,7 +70,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        login,
+        logout,
+        loading,
+        activeComponent,
+        setActiveComponent,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

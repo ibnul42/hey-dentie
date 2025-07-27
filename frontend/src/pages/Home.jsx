@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "./Home.css";
 import logo from "../assets/dentie_logo.png";
 import Chat from "../components/Chat";
 import DailyTip from "../components/DailyTip";
 import TrackHealth from "../components/TrackHealth";
 import AskDentist from "../components/AskDentist";
+import { AuthContext } from "../lib/AuthContext";
 
 const Home = () => {
-  const [activeComponent, setActiveComponent] = useState("chat");
+  const { activeComponent, setActiveComponent } = useContext(AuthContext);
 
   const renderComponent = () => {
     switch (activeComponent) {

@@ -3,10 +3,11 @@ import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="h-screen overflow-x-hidden overflow-y-auto flex flex-col bg-[#f6fffc]">
+    <div className="min-h-screen overflow-x-hidden overflow-y-auto flex flex-col justify-between bg-[#f6fffc]">
       <Header />
       {/* Define your routes here */}
       <Routes>
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         {/* You'll add Login/Register routes next */}
       </Routes>
+      <Footer />
     </div>
   );
 }
