@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="min-h-screen overflow-x-hidden overflow-y-auto flex flex-col justify-between bg-gray-900 font-family">
+    <div className="min-h-screen overflow-x-hidden overflow-y-auto flex flex-col justify-between bg-[#f6fffc] font-family">
       <Header />
       {/* Define your routes here bg-[#f6fffc] */}
       <Routes>
