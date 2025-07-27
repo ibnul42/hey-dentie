@@ -73,8 +73,7 @@ router.post("/ask", async (req, res) => {
           process.env.JWT_SECRET
         );
         userId = decoded.id;
-      } catch (e) {
-      }
+      } catch (e) {}
     }
 
     await QA.create({
@@ -203,13 +202,39 @@ router.get("/tracker", verifyToken, async (req, res) => {
   }
 });
 
+router.get("/tracker/streak", verifyToken, async (req, res) => {
+  try {
+    const logs = await Tracker.find({ user: req.user._id }).sort({ date: -1 });
+
+    let streak = 0;
+    let currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
+    for (let log of logs) {
+      const logDate = new Date(log.date);
+      logDate.setHours(0, 0, 0, 0);
+
+      if (logDate.getTime() === currentDate.getTime()) {
+        streak++;
+        currentDate.setDate(currentDate.getDate() - 1);
+      } else if (logDate.getTime() === currentDate.getTime() - 86400000) {
+        streak++;
+        currentDate.setDate(currentDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+
+    res.json({ streak });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch streak" });
+  }
+});
+
 // 5️⃣ Get Past Asked Questions & Answers
 router.get("/ask-history", async (req, res) => {
   try {
-    const history = await QA.find({})
-      .sort({ date: -1 })
-      .select("-__v")
-      .lean();
+    const history = await QA.find({}).sort({ date: -1 }).select("-__v").lean();
 
     res.json({ history });
   } catch (err) {

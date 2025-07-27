@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../lib/AuthContext";
+import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 
 const Chat = () => {
   const [question, setQuestion] = useState("");
@@ -8,9 +9,37 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
 
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef(null);
+
   const inputRef = useRef(null);
 
   const { token } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!("webkitSpeechRecognition" in window)) {
+      console.warn("Speech recognition not supported in this browser.");
+      return;
+    }
+
+    const SpeechRecognition = window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setQuestion((prev) => `${prev} ${transcript}`);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+  }, []);
 
   // Load chat history from localStorage
   useEffect(() => {
@@ -78,31 +107,66 @@ const Chat = () => {
     setHistory([]);
   };
 
+  const handleMicClick = () => {
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+    } else {
+      recognitionRef.current?.start();
+      setIsListening(true);
+    }
+  };
+
   return (
     <div className="max-w-xl mx-auto mt-12 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-center">
       <h2 className="text-xl font-semibold mb-4">🧠 Ask Dentie</h2>
 
-      <input
-        ref={inputRef}
-        type="text"
-        placeholder="Type your dental question..."
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-        onKeyDown={handleKeyPress}
-        className="w-full p-2 mb-4 border border-gray-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-teal-400"
-      />
+      <div className="relative flex items-center gap-2 mb-4">
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder="Type your dental question..."
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          onKeyDown={handleKeyPress}
+          className="w-full py-3 px-4 border border-gray-300 rounded-md text-lg placeholder:text-base md:placeholder:text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+        />
 
-      <button
-        onClick={handleAsk}
-        disabled={loading || !question.trim()}
-        className={`w-full mb-4 py-2 rounded-md text-white font-medium text-base transition-colors ${
-          loading || !question.trim()
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-teal-500 hover:bg-teal-600 cursor-pointer"
-        }`}
-      >
-        {loading ? "Thinking..." : "🦷 Ask Dentie"}
-      </button>
+        {/* Mic Button */}
+        <button
+          type="button"
+          onClick={handleMicClick}
+          title={isListening ? "Stop Listening" : "Start Voice Input"}
+          className={`absolute right-2 text-gray-500 hover:text-teal-600 cursor-pointer ${
+            isListening ? "text-red-500 animate-pulse" : ""
+          }`}
+        >
+          {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+        </button>
+      </div>
+
+      <div className="relative w-full mb-4">
+        <button
+          onClick={handleAsk}
+          disabled={loading || !question.trim()}
+          aria-disabled={loading || !question.trim()}
+          className={`w-full py-3 rounded-md font-semibold text-base transition-colors
+    ${
+      loading || !question.trim()
+        ? "bg-teal-700 text-teal-300 cursor-not-allowed"
+        : "bg-teal-500 hover:bg-teal-600 text-white cursor-pointer"
+    }`}
+        >
+          {loading ? "Thinking..." : "🦷 Ask Dentie"}
+        </button>
+
+        {/* Tooltip when input is empty */}
+        {!question.trim() && !loading && (
+          <p className="absolute top-full mt-1 text-xs text-gray-600 text-center w-full animate-pulse py-1 font-semibold">
+            Start typing to enable the button
+          </p>
+        )}
+      </div>
 
       {answer && (
         <div className="mt-4 text-left bg-white p-3 rounded-md border border-teal-200 shadow-sm">

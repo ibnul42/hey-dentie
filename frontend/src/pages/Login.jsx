@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex-1 flex justify-center items-center">
+    <div className="flex-1 flex justify-center items-center px-3">
       <div className="max-w-md mx-auto mt-12 p-6 bg-white shadow-md border border-gray-200 rounded-lg">
         <h2 className="text-2xl font-semibold mb-4 text-center text-teal-600">
           🔐 Login to Hey Dentie
