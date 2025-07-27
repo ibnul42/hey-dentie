@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../lib/AuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,12 +24,15 @@ const Login = () => {
       const data = await res.json();
 
       if (res.ok) {
-        login(data.token, data.user); // update context state
+        login(data.token, data.user);
+        toast.success("Welcome back! 👋");
         navigate("/");
       } else {
         setErrorMsg(data.message || "Invalid credentials");
+        // toast.error(data.message || "Invalid credentials");
       }
     } catch (err) {
+      // toast.error("Something went wrong.");
       setErrorMsg("Something went wrong.");
     }
   };

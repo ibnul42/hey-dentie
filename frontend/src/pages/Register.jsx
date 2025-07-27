@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,11 +18,14 @@ const Register = () => {
       if (!token) return;
 
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/verify-token`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/verify-token`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await res.json();
 
@@ -56,14 +60,9 @@ const Register = () => {
       const data = await res.json();
 
       if (res.ok) {
-        // Save token and user info returned from backend
-        // localStorage.setItem("token", data.token);
-        // localStorage.setItem("user", JSON.stringify(data.user));
-
-        // Navigate to home page on successful registration
+        toast.success("🎉 Registration successful! Please login.");
         navigate("/login");
       } else {
-        // Show backend error message or fallback
         setErrorMsg(data.message || "Registration failed");
       }
     } catch (err) {
