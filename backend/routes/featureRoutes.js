@@ -21,41 +21,15 @@ router.post("/ask", async (req, res) => {
     return res.status(400).json({ error: "Invalid question input" });
   }
 
-  // testing api
-  // return res.status(400).json({ answer: "dental health answer" });
-
   try {
-    // Step 1: Use to check if it's dental related
-    const filterCheck = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You're a dental filter bot. Reply ONLY with 'yes' if the question is about dental health. If not, reply 'no'. No explanation.",
-        },
-        { role: "user", content: question },
-      ],
-      temperature: 0,
-    });
-
-    const responseText = filterCheck.choices[0]?.message?.content
-      .toLowerCase()
-      .trim();
-
-    if (!responseText.startsWith("yes")) {
-      return res.json({
-        answer: "🦷 Please ask a question related to dental health.",
-      });
-    }
-
-    // Step 2: Use for actual answer
+    // Step 1: Get AI answer (any topic)
     const answerResponse = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
-          content: "You are a helpful AI dental assistant.",
+          content:
+            "You are a helpful AI assistant. Answer clearly and concisely.",
         },
         { role: "user", content: question },
       ],
@@ -64,7 +38,7 @@ router.post("/ask", async (req, res) => {
 
     const answer = answerResponse.choices[0]?.message?.content;
 
-    // ✅ Step 3: Save question + answer to DB
+    // Step 2: Decode token and save Q&A if logged in
     let userId = null;
     if (token) {
       try {
@@ -73,7 +47,9 @@ router.post("/ask", async (req, res) => {
           process.env.JWT_SECRET
         );
         userId = decoded.id;
-      } catch (e) {}
+      } catch (e) {
+        // token invalid or expired
+      }
     }
 
     await QA.create({
@@ -84,6 +60,7 @@ router.post("/ask", async (req, res) => {
 
     res.json({ answer: answer || "Sorry, I couldn't find an answer." });
   } catch (error) {
+    console.error("Error in /ask:", error);
     res.status(500).json({ error: "Failed to get AI response" });
   }
 });

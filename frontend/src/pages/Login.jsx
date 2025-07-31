@@ -1,7 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../lib/AuthContext";
 import { toast } from "react-toastify";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,15 +27,40 @@ const Login = () => {
 
       if (res.ok) {
         login(data.token, data.user);
-        toast.success("Welcome back! 👋");
+        toast.success(`Welcome ${data.user.name || "👋"}!`);
         navigate("/");
       } else {
         setErrorMsg(data.message || "Invalid credentials");
-        // toast.error(data.message || "Invalid credentials");
       }
     } catch (err) {
-      // toast.error("Something went wrong.");
       setErrorMsg("Something went wrong.");
+    }
+  };
+
+  const goolgeLoginHandler = async (res) => {
+    console.log(res);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/google-login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ credential: res.credential }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        login(data.token, data.user);
+        toast.success(`Welcome ${data.user.name || "👋"}!`);
+        navigate("/");
+      } else {
+        toast.error(data.message || "Google login failed.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong during Google login.");
     }
   };
 
@@ -72,6 +99,16 @@ const Login = () => {
             Login
           </button>
         </form>
+
+        <div className="my-4 text-center text-gray-500 text-sm">or</div>
+
+        <div className="w-full flex justify-center mb-2">
+          <GoogleLogin
+            onSuccess={goolgeLoginHandler}
+            onError={() => toast.error("Google login failed.")}
+            auto_select
+          />
+        </div>
 
         <p className="mt-4 text-sm text-center">
           Don&apos;t have an account?{" "}

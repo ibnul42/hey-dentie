@@ -77,7 +77,7 @@ const Header = () => {
 
       {/* Mobile hamburger menu button */}
       <button
-        className="md:hidden flex items-center justify-center p-2 rounded-md text-teal-600 hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-teal-400"
+        className="md:hidden flex items-center justify-center p-2 rounded-md text-teal-600 hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-teal-400 cursor-pointer"
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label="Toggle menu"
       >
@@ -125,7 +125,7 @@ const Header = () => {
                   logout();
                   setMenuOpen(false);
                 }}
-                className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md transition"
+                className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md transition cursor-pointer"
               >
                 Logout
               </button>
@@ -136,7 +136,7 @@ const Header = () => {
                 navigate("/login");
                 setMenuOpen(false);
               }}
-              className="w-full bg-teal-500 hover:bg-teal-600 text-white px-3 py-2 rounded-md transition"
+              className="w-full bg-teal-500 hover:bg-teal-600 text-white px-3 py-2 rounded-md transition cursor-pointer"
             >
               Login
             </button>
