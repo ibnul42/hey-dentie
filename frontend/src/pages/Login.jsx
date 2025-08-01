@@ -38,7 +38,6 @@ const Login = () => {
   };
 
   const goolgeLoginHandler = async (res) => {
-    console.log(res);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/google-login`,

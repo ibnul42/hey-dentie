@@ -5,6 +5,7 @@ const Tracker = require("../models/Tracker");
 const Tip = require("../models/Tip");
 const QA = require("../models/QuestionAnswer");
 const { verifyToken } = require("../middleware/authMiddleware");
+const { dailyAskLimit } = require("../middleware/rateLimit");
 
 // AI Configuration
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -13,7 +14,7 @@ const client = new OpenAI();
 /**
  * 1️⃣ Ask Dentie - AI Response
  */
-router.post("/ask", async (req, res) => {
+router.post("/ask", verifyToken, dailyAskLimit, async (req, res) => {
   const { question } = req.body;
   const token = req.headers.authorization?.split(" ")[1];
 

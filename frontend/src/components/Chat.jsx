@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../lib/AuthContext";
 import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Chat = () => {
   const [question, setQuestion] = useState("");
@@ -14,7 +15,7 @@ const Chat = () => {
 
   const inputRef = useRef(null);
 
-  const { token } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
 
   useEffect(() => {
     if (!("webkitSpeechRecognition" in window)) {
@@ -77,25 +78,23 @@ const Chat = () => {
       });
 
       const data = await response.json();
-
-      let finalAnswer = "";
-
-      if (
-        data.answer?.toLowerCase().includes("please ask a question related")
-      ) {
-        finalAnswer = "🦷 Please ask something related to dental health.";
-      } else {
-        finalAnswer = data.answer || "Sorry, Dentie is confused.";
+      if (!response.ok) {
+        if (response.status === 429) {
+          toast.error(data.message || "Something went wrong.");
+          return;
+        }
       }
 
+      let finalAnswer = "";
+      finalAnswer = data.answer || "Sorry, Dentie is confused.";
       setAnswer(finalAnswer);
       saveToHistory(question, finalAnswer);
       setQuestion("");
-    } catch (error) {
+    } catch {
       setAnswer("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const handleKeyPress = (e) => {
@@ -148,11 +147,11 @@ const Chat = () => {
       <div className="relative w-full mb-4">
         <button
           onClick={handleAsk}
-          disabled={loading || !question.trim()}
-          aria-disabled={loading || !question.trim()}
+          disabled={loading || !question.trim() || !user}
+          aria-disabled={loading || !question.trim() || !user}
           className={`w-full py-3 rounded-md font-semibold text-base transition-colors
     ${
-      loading || !question.trim()
+      loading || !question.trim() || !user
         ? "bg-teal-700 text-teal-300 cursor-not-allowed"
         : "bg-teal-500 hover:bg-teal-600 text-white cursor-pointer"
     }`}
@@ -161,10 +160,19 @@ const Chat = () => {
         </button>
 
         {/* Tooltip when input is empty */}
-        {!question.trim() && !loading && (
-          <p className="absolute top-full mt-1 text-xs text-gray-600 text-center w-full animate-pulse py-1 font-semibold">
-            Start typing to enable the button
-          </p>
+        {!loading && (
+          <>
+            {question.trim().length === 0 && (
+              <p className="absolute top-full mt-1 text-xs text-gray-600 text-center w-full animate-pulse py-1 font-semibold">
+                Start typing to enable the button
+              </p>
+            )}
+            {question.trim().length > 0 && !user && (
+              <p className="absolute top-full mt-1 text-xs text-red-500 text-center w-full animate-pulse py-1 font-semibold">
+                Please log in to ask Dentie.
+              </p>
+            )}
+          </>
         )}
       </div>
 

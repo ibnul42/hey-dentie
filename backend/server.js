@@ -5,7 +5,12 @@ require("dotenv").config();
 
 const app = express();
 const corsOptions = {
-  origin: ['https://heydentie.com', 'https:www.//heydentie.com', 'http://localhost:5500'],
+  origin: [
+    "https://heydentie.com",
+    "https:www.//heydentie.com",
+    "http://localhost:5500",
+    "http://localhost:5173",
+  ],
   credentials: true,
 };
 
