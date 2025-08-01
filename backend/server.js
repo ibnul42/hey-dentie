@@ -4,7 +4,12 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: ['https://heydentie.com', 'https:www.//heydentie.com', 'http://localhost:5500'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Connect MongoDB
