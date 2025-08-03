@@ -2,12 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const bodyParser = require("body-parser");
+const { default: Stripe } = require("stripe");
+const webhookRoutes = require("./routes/webhookRoutes");
 
 const app = express();
 const corsOptions = {
   origin: [
     "https://heydentie.com",
-    "https:www.//heydentie.com",
+    "https://www.heydentie.com",
     "http://localhost:5500",
     "http://localhost:5173",
   ],
@@ -15,6 +18,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use("", webhookRoutes);
 app.use(express.json());
 
 // Connect MongoDB

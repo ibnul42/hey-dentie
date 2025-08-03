@@ -9,7 +9,8 @@ const { dailyAskLimit } = require("../middleware/rateLimit");
 
 // AI Configuration
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const client = new OpenAI();
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 /**
  * 1️⃣ Ask Dentie - AI Response
@@ -217,6 +218,34 @@ router.get("/ask-history", async (req, res) => {
     res.json({ history });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch ask history." });
+  }
+});
+
+router.post("/create-checkout-session", async (req, res) => {
+  try {
+    const { priceId, userId, billingType } = req.body;
+    const isLifetime = billingType === "lifetime";
+
+    const session = await stripe.checkout.sessions.create({
+      mode: isLifetime ? "payment" : "subscription",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      success_url: `${process.env.FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+      metadata: {
+        userId,
+        type: billingType, // "monthly" | "yearly" | "lifetime"
+      },
+    });
+    res.json({ url: session.url });
+  } catch (error) {
+    console.error("Error creating checkout session:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

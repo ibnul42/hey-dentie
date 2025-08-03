@@ -9,9 +9,14 @@ import { AuthContext } from "../lib/AuthContext";
 import DentieRecommends from "../components/DentieRecommends";
 import StreakTracker from "../components/StreakTracker";
 import Testimonials from "../components/Testimonials";
+import PricingSection from "../components/PricingSection";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
+
+// const stripePromise = loadStripe("pk_test_TTebMPrlxPhCmnV89GSe5Kr6");
 
 const Home = () => {
-  const { activeComponent, setActiveComponent } = useContext(AuthContext);
+  const { activeComponent, setActiveComponent, user } = useContext(AuthContext);
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -84,6 +89,8 @@ const Home = () => {
       <StreakTracker />
       <DentieRecommends />
       <Testimonials />
+
+      {user?.isPremium && <PricingSection />}
     </div>
   );
 };
