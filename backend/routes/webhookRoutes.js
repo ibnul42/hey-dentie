@@ -41,9 +41,22 @@ router.post(
 
         // Optional: update user
         if (userId) {
+          let subscriptionEndDate = null;
+          const now = new Date();
+
+          if (billingType === "monthly") {
+            subscriptionEndDate = new Date(now.setMonth(now.getMonth() + 1));
+          } else if (billingType === "yearly") {
+            subscriptionEndDate = new Date(
+              now.setFullYear(now.getFullYear() + 1)
+            );
+          } else if (billingType === "lifetime") {
+            subscriptionEndDate = null; // lifetime, no expiry
+          }
           await User.findByIdAndUpdate(userId, {
             isPremium: true,
             subscriptionType: billingType,
+            subscriptionEndDate,
           });
         }
 

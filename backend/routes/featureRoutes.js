@@ -170,10 +170,18 @@ router.post("/tracker", verifyToken, async (req, res) => {
  */
 router.get("/tracker", verifyToken, async (req, res) => {
   try {
-    const logs = await Tracker.find({ user: req.user._id })
+    // Base query
+    let query = Tracker.find({ user: req.user._id })
       .sort({ date: -1 }) // newest first
       .select("-__v") // remove internal Mongo field
       .lean();
+
+    // Limit to 3 if not premium
+    if (!req.user.isPremium) {
+      query = query.limit(3);
+    }
+
+    const logs = await query;
 
     res.json({ logs });
   } catch (err) {

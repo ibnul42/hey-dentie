@@ -66,6 +66,19 @@ const loginUser = async (req, res) => {
     if (!isMatch)
       return res.status(401).json({ message: "Invalid email or password." });
 
+    // Check subscription status
+    if (user.subscriptionType !== "lifetime") {
+      if (
+        user.subscriptionEndDate &&
+        new Date() > new Date(user.subscriptionEndDate)
+      ) {
+        // Subscription expired, update to free
+        user.subscriptionType = "free";
+        user.subscriptionEndDate = null;
+        await user.save();
+      }
+    }
+
     // Generate token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",

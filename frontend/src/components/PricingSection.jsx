@@ -49,12 +49,15 @@ export default function PricingSection() {
     } else {
       try {
         const prices = {
-          monthly: "price_1RrmWeIrKwv2F1FvBBNypBzH",
-          yearly: "price_1RrmX1IrKwv2F1FvpytMUU6I",
-          lifetime: "price_1RrmXyIrKwv2F1FvQMqNg6Rt",
+          monthly: "price_1RsVbkLFC3zYqqmMmPnx8egR",
+          yearly: "price_1RsVevLFC3zYqqmMWzPvTwxG",
+          lifetime: "price_1RsVg0LFC3zYqqmMnsvTqiH5",
+          // monthly: "price_1RrmWeIrKwv2F1FvBBNypBzH",
+          // yearly: "price_1RrmX1IrKwv2F1FvpytMUU6I",
+          // lifetime: "price_1RrmXyIrKwv2F1FvQMqNg6Rt",
         };
         const response = await fetch(
-          "http://localhost:5500/create-checkout-session",
+          `${import.meta.env.VITE_API_URL}/create-checkout-session`,
           {
             method: "POST",
             headers: {

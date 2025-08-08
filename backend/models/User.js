@@ -12,6 +12,12 @@ const userSchema = new mongoose.Schema(
       enum: ["free", "monthly", "yearly", "lifetime"],
       default: "free",
     },
+    subscriptionEndDate: { type: Date, default: null },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
     dailyAskCount: { type: Number, default: 0 },
     lastAskDate: { type: Date, default: null },
   },

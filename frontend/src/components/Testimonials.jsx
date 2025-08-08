@@ -87,7 +87,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section className="mt-12 max-w-5xl mx-auto px-4">
+    <section className="mt-12 max-w-5xl mx-auto px-4 py-4">
       <h2 className="text-xl text-center md:text-2xl font-bold text-teal-700 mb-6">
         💬 What Our Users Say
       </h2>

@@ -90,7 +90,7 @@ const Home = () => {
       <DentieRecommends />
       <Testimonials />
 
-      {user?.isPremium && <PricingSection />}
+      {!user?.isPremium && <PricingSection />}
     </div>
   );
 };

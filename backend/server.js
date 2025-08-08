@@ -36,6 +36,8 @@ app.get("/test", async (req, res) => {
 });
 app.use("", require("./routes/featureRoutes"));
 app.use("", require("./routes/authRoutes"));
+app.use("", require("./routes/adminRoutes"));
+app.use("", require("./routes/emailRoutes"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
