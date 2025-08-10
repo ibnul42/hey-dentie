@@ -1,9 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
+require("dotenv").config({ path: __dirname + "/.env" });
 const bodyParser = require("body-parser");
-const { default: Stripe } = require("stripe");
 const webhookRoutes = require("./routes/webhookRoutes");
 
 const app = express();
