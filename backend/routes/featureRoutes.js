@@ -26,7 +26,7 @@ router.post("/ask", verifyToken, dailyAskLimit, async (req, res) => {
   try {
     // Step 1: Get AI answer (any topic)
     const answerResponse = await openai.chat.completions.create({
-      model: "GPT-4o-mini",
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
@@ -84,7 +84,7 @@ router.get("/dailytip", async (req, res) => {
     if (!tipDoc) {
       // 2. Get AI-generated tip
       const completion = await openai.chat.completions.create({
-        model: "GPT-4o-mini",
+        model: "gpt-4o-mini",
         messages: [
           {
             role: "system",
@@ -112,6 +112,7 @@ router.get("/dailytip", async (req, res) => {
     // 4. Return today's tip
     res.json({ tip: tipDoc.tip });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "Failed to fetch daily tip" });
   }
 });

@@ -6,7 +6,8 @@ import { googleLogout } from "@react-oauth/google";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, activeComponent, setActiveComponent } =
+    useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -30,9 +31,9 @@ const Header = () => {
 
   const baseMenuItems = [
     { name: "Home", path: "/" },
-    { name: "Tracker", path: "/tracker" },
-    { name: "Ask Dentie", path: "/ask" },
-    { name: "Tips", path: "/tips" },
+    { name: "Tracker", value: "track" },
+    { name: "Ask Dentie", value: "chat" },
+    { name: "Tips", value: "tip" },
   ];
 
   const menuItems =
@@ -60,7 +61,13 @@ const Header = () => {
         {menuItems.map((item) => (
           <button
             key={item.name}
-            onClick={() => navigate(item.path)}
+            onClick={() => {
+              if (item.path) {
+                navigate(item.path);
+              } else if (item.value) {
+                setActiveComponent(item.value.toLowerCase());
+              }
+            }}
             className="text-gray-700 hover:text-teal-600 font-medium cursor-pointer"
           >
             {item.name}
