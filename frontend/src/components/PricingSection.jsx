@@ -30,13 +30,12 @@ const plans = [
       "Natural remedy library",
       "Personalized suggestions",
       "Email/WhatsApp tips",
-      "Human dental review",
       "Priority support",
     ],
   },
 ];
 
-export default function PricingSection() {
+export default function PricingSection({ premiumRef }) {
   const [billing, setBilling] = useState("monthly");
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -79,7 +78,7 @@ export default function PricingSection() {
   };
 
   return (
-    <section className="py-12 bg-gray-50">
+    <section ref={premiumRef} className="py-12 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold mb-6">Free vs. Premium Access</h2>
 
@@ -107,21 +106,33 @@ export default function PricingSection() {
         {/* Plan Cards */}
         <div className="grid md:grid-cols-2 gap-8 text-left">
           {/* Free Plan */}
-          <div className="bg-white p-6 rounded-2xl shadow-md border border-teal-100">
+          <div className="bg-white p-6 flex flex-col rounded-2xl shadow-md border border-teal-100">
             <h3 className="text-xl font-semibold text-teal-600">
               {plans[0].type}
             </h3>
             <p className="text-2xl font-bold mb-4">{plans[0].name}</p>
             <p className="text-3xl font-bold mb-4">{plans[0].price}</p>
-            <ul className="space-y-2 mb-6 text-sm">
+            <ul className="flex-1 space-y-2 mb-6 text-sm">
               {plans[0].features.map((feature, i) => (
                 <li key={i} className="flex items-center">
                   <span className="text-green-600 mr-2">✔</span> {feature}
                 </li>
               ))}
             </ul>
-            <button className="w-full py-2 bg-gray-300 text-gray-700 rounded-xl font-semibold cursor-default">
-              Current Plan
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                if (!user) {
+                  navigate("/login");
+                }
+              }}
+              className={`w-full py-2 rounded-xl font-semibold cursor-pointer ${
+                !user
+                  ? "bg-teal-600 hover:bg-teal-700 text-white"
+                  : "bg-gray-300 text-gray-700"
+              }`}
+            >
+              {!user ? "Upgrade to Basic" : "Current Plan"}
             </button>
           </div>
 
@@ -142,7 +153,7 @@ export default function PricingSection() {
               ))}
             </ul>
             <button
-              onClick={(e) => upgradeHandler(e)}
+              onClick={upgradeHandler}
               className="w-full py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-semibold cursor-pointer"
             >
               Upgrade to Pro
@@ -150,6 +161,20 @@ export default function PricingSection() {
           </div>
         </div>
       </div>
+      {/* CTA Strip After Pricing */}
+      {!user && (
+        <div className="mt-16 bg-teal-600 text-white py-8 rounded shadow-lg text-center">
+          <h3 className="text-2xl font-bold mb-4">
+            Join 2,000+ people getting smarter about dental health every day
+          </h3>
+          <button
+            onClick={() => navigate("/register")}
+            className="bg-white text-teal-600 font-semibold px-6 py-3 rounded-full shadow-md hover:bg-gray-100 cursor-pointer"
+          >
+            Start Free – No Card Required
+          </button>
+        </div>
+      )}
     </section>
   );
 }

@@ -1,22 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "./Home.css";
 import logo from "../assets/dentie_logo.png";
+import heroImage from "/assets/hero-dental.jpg"; // <-- Add a new hero illustration here
 import Chat from "../components/Chat";
 import DailyTip from "../components/DailyTip";
 import TrackHealth from "../components/TrackHealth";
-import AskDentist from "../components/AskDentist";
 import { AuthContext } from "../lib/AuthContext";
 import DentieRecommends from "../components/DentieRecommends";
 import StreakTracker from "../components/StreakTracker";
 import Testimonials from "../components/Testimonials";
 import PricingSection from "../components/PricingSection";
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
-
-// const stripePromise = loadStripe("pk_test_TTebMPrlxPhCmnV89GSe5Kr6");
+import { FaBrain, FaLeaf, FaChartLine } from "react-icons/fa";
 
 const Home = () => {
   const { activeComponent, setActiveComponent, user } = useContext(AuthContext);
+  const dailyTipRef = useRef(null);
+  const premiumRef = useRef(null);
+
+  console.log(user);
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -26,71 +27,167 @@ const Home = () => {
         return <DailyTip />;
       case "track":
         return <TrackHealth />;
-      // case "dentist":
-      //   return <AskDentist />;
       default:
         return null;
     }
   };
 
+  const handleHeroButton = (val) => {
+    if (val === "tip") {
+      setActiveComponent("tip");
+      if (dailyTipRef.current) {
+        dailyTipRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      if (premiumRef.current) {
+        premiumRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
-    <div className="flex-1 py-10 px-3 h-full">
-      <header className="header text-center">
-        <img src={logo} alt="Hey Dentie Logo" className="logo mx-auto mb-4" />
-        <h1 className="text-2xl md:text-4xl font-extrabold text-teal-700 leading-tight">
-          Hey Dentie – Your AI Dental Friend
-        </h1>
-        <p className="text-gray-600 my-3 text-sm md:text-lg">
-          Helping you smile naturally with friendly AI and daily tips 🌿
-        </p>
+    <div className="flex-1">
+      {/* Hero Section */}
+      <section className="bg-teal-50 py-12 md:py-20">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+          {/* Left Content */}
+          <div className="md:w-1/2 text-center md:text-left">
+            <img
+              src={logo}
+              alt="Hey Dentie Logo"
+              className="w-20 mx-auto md:mx-0 mb-4"
+            />
+            <h1 className="text-2xl md:text-4xl font-extrabold text-teal-700 mb-4 leading-tight">
+              Your AI Dental Coach – <br /> Smart Tips, Healthy Smile!
+            </h1>
+            <p className="text-gray-700 text-lg mb-6">
+              Get expert dental advice, daily tips, and personalized health
+              tracking – all in one app.
+            </p>
 
-        <p className="text-sm md:text-base text-teal-900 font-medium max-w-xl mx-auto mb-4">
-          Instant answers, personalized tracking, and smart tips to keep your
-          teeth strong – all in one AI-powered assistant.
-        </p>
-      </header>
+            {/* CTA Buttons */}
+            <div className="flex gap-4 justify-center md:justify-start mb-6">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleHeroButton("tip");
+                }}
+                className="bg-teal-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-teal-600 transition cursor-pointer"
+              >
+                🌿 Get Free Tips
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleHeroButton("subscribe");
+                }}
+                className="bg-white border-2 border-teal-500 text-teal-600 px-6 py-3 rounded-lg font-semibold hover:bg-teal-100 transition cursor-pointer"
+              >
+                ⭐ Try Dentie Pro
+              </button>
+            </div>
+          </div>
 
-      <div className="flex justify-center gap-4 my-6 flex-wrap">
+          {/* Hero Image */}
+          <div className="md:w-1/2 mt-10 md:mt-0 flex justify-center">
+            <img
+              src={heroImage}
+              alt="AI Dental Coach"
+              className="w-80 md:w-96 rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto bg-white border border-teal-200 rounded-lg shadow-md p-5 mb-8">
+        <h3 className="text-lg font-semibold mb-3 text-teal-700 text-center">
+          👀 See How Dentie Helps Instantly
+        </h3>
+        <div className="bg-teal-50 border border-teal-100 rounded-md p-4 mb-3">
+          <p className="text-gray-800 text-sm">
+            <strong>You:</strong> “My gums bleed when brushing. What should I
+            do?”
+          </p>
+          <p className="text-teal-700 text-sm mt-2">
+            <strong>Dentie:</strong> That’s a common sign of{" "}
+            <strong>gingivitis</strong>. Here’s what you can do:
+          </p>
+          <ul className="list-disc list-inside text-gray-700 text-sm mt-2">
+            <li>Brush gently with a soft-bristled toothbrush.</li>
+            <li>Floss daily to remove plaque between teeth.</li>
+            <li>Use an antibacterial mouthwash.</li>
+          </ul>
+          {!user?.isPremium && (
+            <p className="text-teal-600 text-sm mt-3 font-medium">
+              👉 Want full personalized guidance?{" "}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleHeroButton("subscribe");
+                }}
+                className="underline font-semibold cursor-pointer hover:text-teal-800"
+              >
+                Upgrade to Pro
+              </button>
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div
+        ref={dailyTipRef}
+        className="grid grid-cols-1 sm:grid-cols-3 gap-6 my-8 max-w-4xl mx-auto"
+      >
+        {/* Ask Dentie */}
         <button
           onClick={() => setActiveComponent("chat")}
-          className={`px-6 py-3 text-base rounded-lg font-semibold transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-teal-400 cursor-pointer ${
+          className={`flex flex-col items-center justify-center p-6 rounded-xl font-semibold transition duration-300 border border-teal-200 shadow-md min-h-[160px] cursor-pointer ${
             activeComponent === "chat"
               ? "bg-teal-600 text-white"
-              : "bg-teal-500 text-white hover:bg-teal-600"
+              : "bg-white text-teal-600 hover:bg-teal-50"
           }`}
         >
-          🧠 Ask Dentie
+          <FaBrain className="text-3xl mb-3" />
+          Ask Dentie
         </button>
 
+        {/* Daily Tip */}
         <button
           onClick={() => setActiveComponent("tip")}
-          className={`px-6 py-3 text-base rounded-lg font-semibold transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-teal-400 cursor-pointer ${
+          className={`flex flex-col items-center justify-center p-6 rounded-xl font-semibold transition duration-300 border border-teal-200 shadow-md min-h-[160px] cursor-pointer ${
             activeComponent === "tip"
               ? "bg-teal-600 text-white"
-              : "bg-teal-500 text-white hover:bg-teal-600"
+              : "bg-white text-teal-600 hover:bg-teal-50"
           }`}
         >
-          🌿 Daily Tip
+          <FaLeaf className="text-3xl mb-3" />
+          Daily Tip
         </button>
 
+        {/* Track My Health */}
         <button
           onClick={() => setActiveComponent("track")}
-          className={`px-6 py-3 text-base rounded-lg font-semibold transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-teal-400 cursor-pointer ${
+          className={`flex flex-col items-center justify-center p-6 rounded-xl font-semibold transition duration-300 border border-teal-200 shadow-md min-h-[160px] cursor-pointer ${
             activeComponent === "track"
               ? "bg-teal-600 text-white"
-              : "bg-teal-500 text-white hover:bg-teal-600"
+              : "bg-white text-teal-600 hover:bg-teal-50"
           }`}
         >
-          📈 Track My Health
+          <FaChartLine className="text-3xl mb-3" />
+          Track My Health
         </button>
       </div>
 
-      <div className="mt-8">{renderComponent()}</div>
-      <StreakTracker />
-      <DentieRecommends />
-      <Testimonials />
+      {/* Render Selected Component */}
+      <div className="mt-8 px-4">{renderComponent()}</div>
 
-      {!user?.isPremium && <PricingSection />}
+      {/* Additional Sections */}
+      <div>
+        <StreakTracker />
+        <DentieRecommends />
+        <Testimonials />
+      </div>
+      {!user?.isPremium && <PricingSection premiumRef={premiumRef} />}
     </div>
   );
 };

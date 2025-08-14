@@ -5,7 +5,7 @@ const Footer = () => {
   const { setActiveComponent } = useContext(AuthContext);
 
   return (
-    <footer className="bg-teal-600 text-white py-6 mt-12">
+    <footer className="bg-teal-600 text-white py-6">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
         {/* Brand */}
         <div className="text-center md:text-left">

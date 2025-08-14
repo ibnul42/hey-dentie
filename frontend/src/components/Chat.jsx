@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "../lib/AuthContext";
 import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import DentalTipCard from "./DentalTipCard";
 
 const Chat = () => {
   const [question, setQuestion] = useState("");
@@ -178,9 +179,7 @@ const Chat = () => {
 
       {answer && (
         <div className="mt-8 text-left bg-white p-3 rounded-md border border-teal-200 shadow-sm">
-          <p>
-            <strong>Dentie:</strong> {answer}
-          </p>
+          <DentalTipCard answer={answer} />
         </div>
       )}
 
@@ -203,12 +202,7 @@ const Chat = () => {
                 key={index}
                 className="p-3 bg-white border border-teal-100 rounded"
               >
-                <p className="text-sm text-gray-800">
-                  <strong>You:</strong> {item.question}
-                </p>
-                <p className="text-sm text-teal-800 mt-1">
-                  <strong>Dentie:</strong> {item.answer}
-                </p>
+                <DentalTipCard question={item.question} answer={item.answer} />
               </li>
             ))}
           </ul>
