@@ -1,39 +1,37 @@
 const express = require("express");
 const router = express.Router();
-const nodemailer = require("nodemailer");
+const axios = require("axios");
 const { verifyToken } = require("../middleware/authMiddleware");
 const isAdmin = require("../middleware/isAdmin");
 
-// POST /api/send-tip
 router.post("/send-tip", verifyToken, isAdmin, async (req, res) => {
   const { to, subject, message } = req.body;
-  console.log(subject, message, to);
 
   if (!to || !subject || !message) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
   try {
-    // Use Gmail transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: { name: "Flying Albatross", email: "support@heydentie.com" }, // must be verified in Brevo
+        to: [{ email: to }],
+        subject,
+        htmlContent: `<p>${message}</p>`,
       },
-    });
+      {
+        headers: {
+          "api-key": process.env.BREVO_API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    const mailOptions = {
-      from: `"Hey Dentie" <${process.env.GMAIL_USER}>`,
-      to,
-      subject,
-      html: `<p>${message}</p>`,
-    };
-
-    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully:", response.data);
     res.status(200).json({ message: "Tip sent successfully!" });
   } catch (error) {
-    console.log("Failed to send email:", error);
+    console.error("Failed to send email:", error.response?.data || error.message);
     res.status(500).json({ error: "Failed to send email" });
   }
 });

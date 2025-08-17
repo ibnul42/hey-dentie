@@ -22,7 +22,7 @@ const SendTipModal = ({ isOpen, onClose, onSend, user }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div className="fixed inset-0 backdrop-blur-md bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <h3 className="text-lg font-semibold mb-4">Send Tip to {user.name}</h3>
         <input

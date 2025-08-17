@@ -35,7 +35,6 @@ const sendDailyTipEmail = async (email, name, tip) => {
     };
 
     const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
-    console.log(`✅ Email sent to ${email}:`, response.messageId || "Success");
   } catch (error) {
     console.error(`❌ Failed to send email to ${email}:`, error.response?.body || error.message);
   }
