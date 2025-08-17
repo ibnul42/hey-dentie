@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { GoogleLogin } from "@react-oauth/google";
+import { AuthContext } from "../lib/AuthContext";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -70,6 +73,32 @@ const Register = () => {
     }
   };
 
+  const goolgeLoginHandler = async (res) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/google-login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ credential: res.credential }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        login(data.token, data.user);
+        toast.success(`Welcome ${data.user.name || "👋"}!`);
+        navigate("/");
+      } else {
+        toast.error(data.message || "Google login failed.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong during Google login.");
+    }
+  };
+
   return (
     <div className="flex-1 flex justify-center items-center px-3">
       <div className="max-w-md mx-auto mt-12 p-6 bg-white shadow-md border border-gray-200 rounded-lg">
@@ -115,6 +144,16 @@ const Register = () => {
             Register
           </button>
         </form>
+
+        <div className="my-4 text-center text-gray-500 text-sm">or</div>
+
+        <div className="w-full flex justify-center mb-2">
+          <GoogleLogin
+            onSuccess={goolgeLoginHandler}
+            onError={() => toast.error("Google login failed.")}
+            auto_select
+          />
+        </div>
 
         <p className="mt-4 text-sm text-center">
           Already have an account?{" "}

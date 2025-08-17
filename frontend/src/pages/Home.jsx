@@ -48,15 +48,10 @@ const Home = () => {
   return (
     <div className="flex-1">
       {/* Hero Section */}
-      <section className="bg-teal-50 py-12 md:py-20">
+      <section className="bg-teal-50 py-5">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
           {/* Left Content */}
           <div className="md:w-1/2 text-center md:text-left">
-            <img
-              src={logo}
-              alt="Hey Dentie Logo"
-              className="w-20 mx-auto md:mx-0 mb-4"
-            />
             <h1 className="text-2xl md:text-4xl font-extrabold text-teal-700 mb-4 leading-tight">
               Your AI Dental Coach – <br /> Smart Tips, Healthy Smile!
             </h1>
@@ -66,7 +61,7 @@ const Home = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex gap-4 justify-center md:justify-start mb-6">
+            <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start mb-6">
               <button
                 onClick={(e) => {
                   e.preventDefault();
@@ -91,15 +86,15 @@ const Home = () => {
           {/* Hero Image */}
           <div className="md:w-1/2 mt-10 md:mt-0 flex justify-center">
             <img
-              src={heroImage}
-              alt="AI Dental Coach"
-              className="w-80 md:w-96 rounded-lg shadow-lg"
+              src={logo}
+              alt="Hey Dentie Logo"
+              className="w-56 md:w-72 mx-auto md:mx-0 mb-4"
             />
           </div>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto bg-white border border-teal-200 rounded-lg shadow-md p-5 mb-8">
+      {/* <div className="max-w-7xl mx-auto bg-white border border-teal-200 rounded-lg shadow-md p-5 mb-8">
         <h3 className="text-lg font-semibold mb-3 text-teal-700 text-center">
           👀 See How Dentie Helps Instantly
         </h3>
@@ -132,11 +127,11 @@ const Home = () => {
             </p>
           )}
         </div>
-      </div>
+      </div> */}
 
       <div
         ref={dailyTipRef}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-6 my-8 max-w-4xl mx-auto"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-6 my-5 max-w-4xl mx-auto"
       >
         {/* Ask Dentie */}
         <button
@@ -179,10 +174,10 @@ const Home = () => {
       </div>
 
       {/* Render Selected Component */}
-      <div className="mt-8 px-4">{renderComponent()}</div>
+      <div className="py-5 px-4">{renderComponent()}</div>
 
       {/* Additional Sections */}
-      <div>
+      <div className="bg-blue-100 py-5 space-y-8">
         <StreakTracker />
         <DentieRecommends />
         <Testimonials />

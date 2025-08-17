@@ -26,7 +26,7 @@ const recommendations = [
 
 const DentieRecommends = () => {
   return (
-    <div className="mt-12 max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       <h2 className="text-xl text-center md:text-2xl font-bold text-teal-700 mb-4">
         🦷 Dentie Recommends
       </h2>

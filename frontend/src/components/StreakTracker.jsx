@@ -37,7 +37,7 @@ const StreakTracker = () => {
   }, [token]);
 
   return (
-    <section className="mt-16 max-w-xl mx-auto">
+    <section className="max-w-xl mx-auto">
       <h2 className="text-xl text-center md:text-2xl font-bold text-teal-700 mb-4">
         📅 Your Brushing Streak
       </h2>

@@ -26,7 +26,7 @@ const DailyTip = () => {
   }, []);
 
   return (
-    <div className="max-w-xl mx-auto mt-12 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-center shadow">
+    <div className="max-w-xl mx-auto mt-5 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-center shadow">
       <h2 className="text-xl font-semibold mb-4">🌿 Daily Dental Tip</h2>
 
       {loading ? (

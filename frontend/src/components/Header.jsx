@@ -76,16 +76,6 @@ const Header = () => {
 
         {user ? (
           <>
-            {/* <div className="flex items-center gap-2">
-              <span className="text-lg font-semibold text-teal-800 whitespace-nowrap">
-                Hello, {user.name}
-              </span>
-              {user.isPremium && (
-                <span className="px-2 py-0.5 text-xs bg-yellow-500 text-white rounded-full">
-                  PRO
-                </span>
-              )}
-            </div> */}
             <button
               onClick={() => {
                 logout();
@@ -98,15 +88,26 @@ const Header = () => {
             </button>
           </>
         ) : (
-          <button
-            onClick={() => {
-              navigate("/login");
-              setMenuOpen(false);
-            }}
-            className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md transition cursor-pointer"
-          >
-            Login
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                navigate("/login");
+                setMenuOpen(false);
+              }}
+              className="border border-teal-500 hover:bg-teal-600 hover:text-white px-4 py-2 rounded-md transition cursor-pointer"
+            >
+              Login
+            </button>
+            <button
+              onClick={() => {
+                navigate("/register");
+                setMenuOpen(false);
+              }}
+              className="border border-teal-500 bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md transition cursor-pointer"
+            >
+              Sign Up
+            </button>
+          </div>
         )}
       </div>
 

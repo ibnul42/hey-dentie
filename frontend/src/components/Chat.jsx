@@ -118,7 +118,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-12 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-center">
+    <div className="max-w-xl mx-auto p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-center">
       <h2 className="text-xl font-semibold mb-4">🧠 Ask Dentie</h2>
 
       <div className="relative flex items-center gap-2 mb-4">

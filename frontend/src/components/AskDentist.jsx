@@ -11,7 +11,7 @@ const AskDentist = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-left">
+    <div className="max-w-md mx-auto mt-5 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-left">
       <h2 className="text-xl font-semibold text-center mb-4">
         🧑‍⚕️ Ask a Real Dentist
       </h2>
