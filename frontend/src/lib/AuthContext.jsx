@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeComponent, setActiveComponent] = useState("chat");
+  const [activeComponent, setActiveComponent] = useState("");
 
   // On app load, check for token in localStorage and verify
   useEffect(() => {

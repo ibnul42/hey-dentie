@@ -109,7 +109,7 @@ const Testimonials = () => {
   );
 
   return (
-    <section className="max-w-5xl mx-auto px-4">
+    <section className="flex flex-col gap-5 px-6">
       <h2 className="text-xl text-center md:text-2xl font-bold text-teal-700 mb-6">
         💬 What Our Users Say
       </h2>

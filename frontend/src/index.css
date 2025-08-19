@@ -3,3 +3,38 @@
 .font-family {
   font-family: Arial, sans-serif;
 }
+
+@keyframes gradient-move {
+  0% {
+    background-position: 20% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 20% 50%;
+  }
+}
+
+.hover\:animate-gradient-move:hover {
+  animation: gradient-move 3s ease infinite;
+}
+
+.slim-scrollbar::-webkit-scrollbar {
+  width: 6px; /* Slim width */
+}
+
+.slim-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); /* Thumb color */
+  border-radius: 10px;
+}
+
+.slim-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Optional */
+}
+
+/* Firefox support */
+.slim-scrollbar {
+  scrollbar-width: thin;       /* Slim width */
+  scrollbar-color: rgba(0,0,0,0.3) transparent; /* Thumb and track color */
+}

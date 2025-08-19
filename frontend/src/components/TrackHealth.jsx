@@ -92,7 +92,7 @@ const TrackHealth = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-5 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-left">
+    <div className="max-w-full mx-auto mt-5 p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-left">
       <h2 className="text-xl font-semibold text-center mb-4">
         📊 Track My Dental Health
       </h2>

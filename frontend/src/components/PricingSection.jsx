@@ -8,11 +8,9 @@ const plans = [
     type: "Free Plan",
     price: "Free",
     features: [
-      "Ask Dentie (2 questions/day)",
-      "Daily Dental Tip",
-      "Personal Tracker",
-      "Past 3 days history",
-      "No reminders, suggestions, or email tips",
+      "Only 2 AI answer/day",
+      "Limited history (3 days only)",
+      "Daily Tips (basic)",
     ],
   },
   {
@@ -24,12 +22,11 @@ const plans = [
       lifetime: "$99 (launch offer)",
     },
     features: [
-      "Unlimited AI chat",
-      "Daily Tips",
-      "Full tracker access",
+      "Unlimited AI answers",
+      "Full habit tracker",
       "Natural remedy library",
-      "Personalized suggestions",
-      "Email/WhatsApp tips",
+      "Personalized insights",
+      "Tips via WhatsApp/email",
       "Priority support",
     ],
   },
@@ -80,7 +77,10 @@ export default function PricingSection({ premiumRef }) {
   return (
     <section ref={premiumRef} className="py-5 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold mb-6">Free vs. Premium Access</h2>
+        <h2 className="text-3xl font-bold mb-6">
+          Healthy Smile Plans - Start Free, Unlock Pro
+        </h2>
+        <p>No risk - cancel anytime, upgrade when ready.</p>
 
         {/* Billing toggle */}
         <div className="flex justify-center gap-4 mb-10">
@@ -141,28 +141,47 @@ export default function PricingSection({ premiumRef }) {
                   : "bg-gray-300 text-gray-700"
               }`}
             >
-              {!user ? "Get Started Free" : "Current Plan"}
+              {!user ? "Start Free - No Credit Card" : "Current Plan"}
             </button>
+            <p className="pt-2 text-sm text-gray-500">
+              "Dentie Pro helped me stop gum bleeding in just 2 weeks" - Alex,
+              29
+            </p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-teal-400 relative">
-            <div className="absolute top-0 -translate-y-1/2 left-1/2 transform -translate-x-1/2">
+            {/* <div className="absolute top-0 -translate-y-1/2 left-1/2 transform -translate-x-1/2">
               <span className="bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
                 ⭐ Most Popular
               </span>
-            </div>
+            </div> */}
 
-            <h3 className="text-xl font-semibold text-yellow-500 mb-2">
+            {/* <h3 className="text-xl font-semibold text-yellow-500 mb-2">
               Premium Plan
-            </h3>
-            <p className="text-2xl font-bold mb-2 bg-gradient-to-r from-teal-500 to-teal-700 bg-clip-text text-transparent">
-              Dentie Pro
-            </p>
+            </h3> */}
+            <div className="relative w-fit">
+              <div className="absolute -top-3 -right-20 h-full w-auto">
+                <img
+                  src="/logo.png"
+                  className="h-full min-w-auto"
+                  alt="dentie"
+                />
+              </div>
+              <p className="bg-amber-300 w-fit rounded-xl px-4 py-0.5">
+                🔥Limited Time Offer
+              </p>
+              <p className="text-2xl font-bold mb-2 bg-gradient-to-r from-teal-500 to-teal-700 bg-clip-text text-transparent">
+                Dentie Pro
+              </p>
 
-            <p className="text-3xl font-extrabold mb-4 text-teal-700">
-              {plans[1].prices[billing]}
-              <span className="text-sm font-normal text-gray-500"> /month</span>
-            </p>
+              <p className="text-3xl font-extrabold mb-4 text-teal-700">
+                {plans[1].prices[billing]}
+                <span className="text-sm font-normal text-gray-500">
+                  {" "}
+                  /month
+                </span>
+              </p>
+            </div>
 
             <div className="mb-6">
               <ul className="divide-y divide-gray-200 border rounded-lg overflow-hidden">
@@ -190,15 +209,21 @@ export default function PricingSection({ premiumRef }) {
       </div>
       {/* CTA Strip After Pricing */}
       {!user && (
-        <div className="mt-5 bg-teal-600 text-white py-8 rounded shadow-lg text-center">
+        <div className="mt-5 space-y-3 bg-teal-600 text-white py-8 rounded shadow-lg text-center">
           <h3 className="text-2xl font-bold mb-4">
-            Join 2,000+ people getting smarter about dental health every day
+            Join 2,000+ Smarter Smiles
           </h3>
+          <p>Start Your Free AI Dental Coaching Today!</p>
+          <ul className="list-disc list-inside flex flex-col md:flex-row items-start justify-center gap-4 px-4">
+            <li>No credit card</li>
+            <li>Cancel anytime</li>
+            <li>Backed by research</li>
+          </ul>
           <button
             onClick={() => navigate("/register")}
             className="bg-white text-teal-600 font-semibold px-6 py-3 rounded-full shadow-md hover:bg-gray-100 cursor-pointer"
           >
-            Start Free – No Card Required
+            Start Free
           </button>
         </div>
       )}

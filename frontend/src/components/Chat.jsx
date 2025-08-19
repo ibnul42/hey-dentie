@@ -4,8 +4,14 @@ import { AuthContext } from "../lib/AuthContext";
 import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import DentalTipCard from "./DentalTipCard";
+import GradientButton from "./GradientButton";
 
-const Chat = () => {
+const Chat = ({
+  border = true,
+  title = true,
+  placeholder = "Type your dental question...",
+  buttonText = "🦷 Ask Dentie",
+}) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,13 +37,20 @@ const Chat = () => {
     recognition.interimResults = false;
 
     recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setQuestion((prev) => `${prev} ${transcript}`);
-      setIsListening(false);
+      let finalTranscript = "";
+      for (let i = 0; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        }
+      }
+      if (finalTranscript) {
+        setQuestion(finalTranscript.trim());
+        setIsListening(false);
+      }
     };
 
     recognition.onend = () => {
-      setIsListening(false);
+      if (isListening) recognition.start();
     };
 
     recognitionRef.current = recognition;
@@ -118,14 +131,33 @@ const Chat = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-teal-50 border-2 border-teal-400 rounded-lg text-center">
-      <h2 className="text-xl font-semibold mb-4">🧠 Ask Dentie</h2>
+    <div
+      className={`max-w-full mx-auto bg-teal-50 rounded-lg text-center py-5 ${
+        border && "border-2 border-teal-400 px-3 md:px-6 lg:px-8"
+      }`}
+    >
+      {title && (
+        <div className="px-10">
+          <div className="flex items-center justify-center gap-3">
+            <p className="text-lg md:text-xl">
+              AI Dental Insights Backed by{" "}
+              <span className="font-bold">Research</span>
+            </p>
+            <img
+              src="/assets/doctor.jpg"
+              className="w-20 h-20 md:w-28 md:h-28 object-cover object-center rounded-full"
+              alt="Doctor"
+            />
+          </div>
+          <h2 className="text-4xl font-semibold mb-4">Ask Dentie</h2>
+        </div>
+      )}
 
       <div className="relative flex items-center gap-2 mb-4">
         <input
           ref={inputRef}
           type="text"
-          placeholder="Type your dental question..."
+          placeholder={placeholder}
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyPress}
@@ -146,19 +178,21 @@ const Chat = () => {
       </div>
 
       <div className="relative w-full mb-4">
-        <button
-          onClick={handleAsk}
-          disabled={loading || !question.trim() || !user}
-          aria-disabled={loading || !question.trim() || !user}
-          className={`w-full py-3 rounded-md font-semibold text-base transition-colors
+        <GradientButton>
+          <button
+            onClick={handleAsk}
+            disabled={loading || !question.trim() || !user}
+            aria-disabled={loading || !question.trim() || !user}
+            className={`w-full py-3 rounded-full overflow-hidden font-semibold text-base transition-colors
     ${
       loading || !question.trim() || !user
-        ? "bg-teal-700 text-teal-300 cursor-not-allowed"
-        : "bg-teal-500 hover:bg-teal-600 text-white cursor-pointer"
+        ? "text-teal-300 cursor-not-allowed"
+        : "text-white cursor-pointer"
     }`}
-        >
-          {loading ? "Thinking..." : "🦷 Ask Dentie"}
-        </button>
+          >
+            {loading ? "Thinking..." : buttonText}
+          </button>
+        </GradientButton>
 
         {/* Tooltip when input is empty */}
         {!loading && (
