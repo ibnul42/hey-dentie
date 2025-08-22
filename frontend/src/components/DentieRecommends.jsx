@@ -32,7 +32,7 @@ const DentieRecommends = () => {
       <h2 className="text-xl text-center md:text-2xl font-bold text-teal-700 mb-4">
         Dentie's Top Picks for a Healthier Smile
       </h2>
-      <div className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hide pb-2">
+      <div className="flex gap-4 overflow-x-auto overflow-y-hidden slim-scrollbar pb-2">
         {recommendations.map((item, index) => (
           <FlipCard
             key={index}
@@ -57,7 +57,7 @@ const FlipCard = ({ item, index, activeIndex, setActiveIndex }) => {
   };
 
   return (
-    <div className="min-w-[240px] w-full">
+    <div className="min-w-[240px] w-full aspect-square">
       <div className="[perspective:1000px]">
         <div
           className={`relative w-full h-72 transition-transform duration-500 [transform-style:preserve-3d] ${
@@ -67,17 +67,17 @@ const FlipCard = ({ item, index, activeIndex, setActiveIndex }) => {
           {/* Front */}
           <div className="absolute inset-0 bg-white/70 border border-teal-100 rounded-xl shadow p-4 backface-hidden">
             <div
-              className={`h-full flex flex-col justify-between gap-1 transition-all duration-500 ${
+              className={`h-full flex flex-col justify-between gap-2 transition-all duration-500 ${
                 flipped
                   ? "opacity-0 translate-y-4"
                   : "opacity-100 translate-y-0"
               }`}
             >
-              <div className="flex justify-center">{item.icon}</div>
-              <h3 className="font-semibold text-teal-800 text-xl">{item.name}</h3>
-              {/* <p className="flex-grow text-sm text-gray-600 leading-snug">
-                {item.tip}
-              </p> */}
+              <div className="flex">{item.icon}</div>
+              <h3 className="font-semibold text-teal-800 text-md">{item.name}</h3>
+              <p className="flex-grow text-sm text-gray-600 leading-snug">
+                <span className="line-clamp-2">{item.tip}</span>
+              </p>
 
               <GradientButton>
                 <button

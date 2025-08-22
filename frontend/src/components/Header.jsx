@@ -3,17 +3,23 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/dentie_logo.png";
 import { AuthContext } from "../lib/AuthContext";
 import { googleLogout } from "@react-oauth/google";
+import GradientButton from "./GradientButton";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user, logout, activeComponent, setActiveComponent } =
-    useContext(AuthContext);
+  const { user, logout, setActiveComponent } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
         setMenuOpen(false);
       }
     };
@@ -31,9 +37,7 @@ const Header = () => {
 
   const baseMenuItems = [
     { name: "Home", path: "/" },
-    { name: "Tracker", value: "track" },
-    { name: "Ask Dentie", value: "chat" },
-    { name: "Tips", value: "tip" },
+    { name: "About", value: "/about" },
   ];
 
   const menuItems =
@@ -94,25 +98,28 @@ const Header = () => {
                 navigate("/login");
                 setMenuOpen(false);
               }}
-              className="border border-teal-500 hover:bg-teal-600 hover:text-white px-4 py-2 rounded-md transition cursor-pointer"
+              className="border-teal-500 hover:bg-teal-600 hover:text-white px-4 py-2 rounded-md transition cursor-pointer"
             >
               Login
             </button>
-            <button
-              onClick={() => {
-                navigate("/register");
-                setMenuOpen(false);
-              }}
-              className="border border-teal-500 bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md transition cursor-pointer"
-            >
-              Sign Up
-            </button>
+            <GradientButton rounded="rounded-lg">
+              <button
+                onClick={() => {
+                  navigate("/register");
+                  setMenuOpen(false);
+                }}
+                className="text-white px-4 py-2 rounded-md transition cursor-pointer"
+              >
+                Sign Up
+              </button>
+            </GradientButton>
           </div>
         )}
       </div>
 
       {/* Hamburger icon */}
       <button
+        ref={buttonRef}
         className="md:hidden flex items-center justify-center p-2 rounded-md text-teal-600 hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-teal-400 cursor-pointer"
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label="Toggle menu"

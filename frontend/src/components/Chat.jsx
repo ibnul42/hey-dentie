@@ -161,7 +161,7 @@ const Chat = ({
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyPress}
-          className="w-full py-3 px-4 border border-gray-300 rounded-md text-lg placeholder:text-base md:placeholder:text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+          className="w-full py-2 md:py-3 px-2 md:px-4 border border-gray-300 rounded-md text-lg placeholder:text-xs md:placeholder:text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
         />
 
         {/* Mic Button */}
@@ -183,7 +183,7 @@ const Chat = ({
             onClick={handleAsk}
             disabled={loading || !question.trim() || !user}
             aria-disabled={loading || !question.trim() || !user}
-            className={`w-full py-3 rounded-full overflow-hidden font-semibold text-base transition-colors
+            className={`w-full py-2 md:py-3 rounded-full overflow-hidden font-semibold text-sm md:text-base transition-colors
     ${
       loading || !question.trim() || !user
         ? "text-teal-300 cursor-not-allowed"
@@ -198,7 +198,7 @@ const Chat = ({
         {!loading && (
           <>
             {question.trim().length === 0 && (
-              <p className="absolute top-full mt-1 text-xs text-gray-600 text-center w-full animate-pulse py-1 font-semibold">
+              <p className="absolute top-full mt-1 text-[10px] md:text-xs text-gray-600 text-center w-full animate-pulse py-0 md:py-1 font-semibold">
                 Start typing to enable the button
               </p>
             )}

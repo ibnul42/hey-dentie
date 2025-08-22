@@ -77,13 +77,13 @@ export default function PricingSection({ premiumRef }) {
   return (
     <section ref={premiumRef} className="py-5 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold mb-6">
+        <h2 className="text-3xl font-bold mb-2">
           Healthy Smile Plans - Start Free, Unlock Pro
         </h2>
-        <p>No risk - cancel anytime, upgrade when ready.</p>
+        <p className="py-2">No risk - cancel anytime, upgrade when ready.</p>
 
         {/* Billing toggle */}
-        <div className="flex justify-center gap-4 mb-10">
+        <div className="hidden md:flex justify-center gap-4 mb-10">
           {["monthly", "yearly", "lifetime"].map((option) => (
             <button
               key={option}
@@ -150,15 +150,25 @@ export default function PricingSection({ premiumRef }) {
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-teal-400 relative">
-            {/* <div className="absolute top-0 -translate-y-1/2 left-1/2 transform -translate-x-1/2">
-              <span className="bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                ⭐ Most Popular
-              </span>
-            </div> */}
-
-            {/* <h3 className="text-xl font-semibold text-yellow-500 mb-2">
-              Premium Plan
-            </h3> */}
+            <div className="md:hidden flex justify-center gap-4 mb-10">
+              {["monthly", "yearly", "lifetime"].map((option) => (
+                <button
+                  key={option}
+                  className={`px-4 py-2 rounded-full text-sm font-medium cursor-pointer ${
+                    billing === option
+                      ? "bg-teal-600 text-white"
+                      : "bg-gray-200 text-gray-700"
+                  }`}
+                  onClick={() => setBilling(option)}
+                >
+                  {option === "monthly"
+                    ? "Monthly"
+                    : option === "yearly"
+                    ? "Yearly"
+                    : "Lifetime"}
+                </button>
+              ))}
+            </div>
             <div className="relative w-fit">
               <div className="absolute -top-3 -right-20 h-full w-auto">
                 <img

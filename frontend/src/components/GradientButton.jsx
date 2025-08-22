@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function GradientButton({ children }) {
+export default function GradientButton({ children, rounded="rounded-full" }) {
   const [gradientPos, setGradientPos] = useState({ x: 50, y: 50 });
   const [isHovering, setIsHovering] = useState(false);
 
@@ -22,7 +22,7 @@ export default function GradientButton({ children }) {
           ? `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #14b8a6, #115e59)`
           : "linear-gradient(to right, #00786f, #00786f)", // default gradient
       }}
-      className="w-full text-white rounded-full cursor-pointer transition-all duration-300"
+      className={`w-full text-white ${rounded} cursor-pointer transition-all duration-300`}
     >
       {children}
     </div>

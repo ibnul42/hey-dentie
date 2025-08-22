@@ -37,12 +37,12 @@ const StreakTracker = () => {
   }, [token]);
 
   return (
-    <section className="max-w-full mx-auto px-6 flex flex-col gap-5">
+    <section className="max-w-full mx-auto px-3 md:px-6 flex flex-col gap-2 lg:gap-5">
       <h2 className="text-xl text-center md:text-2xl font-bold text-teal-700 mb-4">
         📅 Your Brushing Streak
       </h2>
 
-      <div className="bg-gradient-to-r from-amber-100 to-orange-50 border border-orange-200 rounded-xl py-6 px-2 md:px-4 shadow-md text-center">
+      <div className="bg-white rounded-xl py-6 px-2 md:px-4 shadow-md text-center">
         <h3 className="text-xl md:text-2xl font-bold text-orange-600 mb-2 flex items-center justify-center gap-1">
           🔥 Brushing Streak
         </h3>
@@ -50,7 +50,7 @@ const StreakTracker = () => {
         {loading ? (
           <p className="text-sm text-gray-500">Checking your progress...</p>
         ) : (
-          <div className="text-5xl font-extrabold text-orange-500 mb-2 transition-all duration-300 ease-out">
+          <div className="text-3xl md:text-5xl font-extrabold text-orange-500 mb-2 transition-all duration-300 ease-out">
             {streak}{" "}
             <span className="text-xl">day{streak > 1 ? "'s" : ""}</span>
           </div>
