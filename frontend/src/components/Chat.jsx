@@ -11,6 +11,7 @@ const Chat = ({
   title = true,
   placeholder = "Type your dental question...",
   buttonText = "🦷 Ask Dentie",
+  rounded = "rounded-full",
 }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -178,12 +179,12 @@ const Chat = ({
       </div>
 
       <div className="relative w-full mb-4">
-        <GradientButton>
+        <GradientButton rounded={rounded}>
           <button
             onClick={handleAsk}
             disabled={loading || !question.trim() || !user}
             aria-disabled={loading || !question.trim() || !user}
-            className={`w-full py-2 md:py-3 rounded-full overflow-hidden font-semibold text-sm md:text-base transition-colors
+            className={`w-full py-2 md:py-3 overflow-hidden font-semibold text-sm md:text-base transition-colors
     ${
       loading || !question.trim() || !user
         ? "text-teal-300 cursor-not-allowed"

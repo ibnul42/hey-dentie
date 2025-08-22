@@ -75,8 +75,8 @@ export default function PricingSection({ premiumRef }) {
   };
 
   return (
-    <section ref={premiumRef} className="py-5 bg-gray-50">
-      <div className="max-w-5xl mx-auto px-4 text-center">
+    <section ref={premiumRef} className="py-5 md:py-7 bg-gray-50">
+      <div className="max-w-5xl mx-auto px-4 md:py-5 lg:py-8 text-center">
         <h2 className="text-3xl font-bold mb-2">
           Healthy Smile Plans - Start Free, Unlock Pro
         </h2>

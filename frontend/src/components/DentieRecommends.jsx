@@ -57,7 +57,7 @@ const FlipCard = ({ item, index, activeIndex, setActiveIndex }) => {
   };
 
   return (
-    <div className="min-w-[240px] w-full aspect-square">
+    <div className="min-w-[240px] w-full">
       <div className="[perspective:1000px]">
         <div
           className={`relative w-full h-72 transition-transform duration-500 [transform-style:preserve-3d] ${

@@ -6,15 +6,6 @@ const bodyParser = require("body-parser");
 const webhookRoutes = require("./routes/webhookRoutes");
 
 const app = express();
-const corsOptions = {
-  origin: [
-    "https://heydentie.com",
-    "https://www.heydentie.com",
-    "http://localhost:5500",
-    "http://localhost:5173",
-  ],
-  credentials: true,
-};
 
 app.use(
   cors({
@@ -45,5 +36,5 @@ app.use("", require("./routes/authRoutes"));
 app.use("", require("./routes/adminRoutes"));
 app.use("", require("./routes/emailRoutes"));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

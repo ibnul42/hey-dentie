@@ -52,7 +52,7 @@ const Home = () => {
     <div className="">
       <div className="flex-1 py-1 md:py-3 lg:py-5 w-full max-w-[1440px] mx-auto">
         {/* Hero Section */}
-        <section className="py-5 lg:py-7">
+        <section className="py-5">
           <div className="max-w-full mx-auto grid grid-cols-12 items-center gap-2 justify-between px-3 md:px-6">
             {/* Left Content */}
             <div className="col-span-7 md:col-span-6 text-left space-y-1 lg:space-y-5">
@@ -63,7 +63,7 @@ const Home = () => {
               <p className="text-sm text-gray-700">
                 Get Answers, Tips & Health Tracking in One Place
               </p>
-              <Chat border={false} title={false} />
+              <Chat border={false} title={false} rounded="rounded-md" />
               {/* <div className="max-w-7xl mx-auto bg-white border border-teal-200 rounded-lg shadow-md p-5 mb-8">
                 <h3 className="text-lg font-semibold mb-3 text-teal-700 text-center">
                   👀 See How Dentie Helps Instantly
@@ -168,7 +168,7 @@ const Home = () => {
         </div>
 
         {/* Render Selected Component */}
-        <div className="py-5 lg:py-7 px-4">{renderComponent()}</div>
+        <div className="py-5 px-4">{renderComponent()}</div>
       </div>
       {/* Additional Sections */}
       <div className="py-0 md:py-1 lg:py-5">

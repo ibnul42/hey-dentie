@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GoogleLogin } from "@react-oauth/google";
 import { AuthContext } from "../lib/AuthContext";
+import GradientButton from "../components/GradientButton";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -136,13 +137,14 @@ const Register = () => {
           />
 
           {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
-
-          <button
-            type="submit"
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 rounded cursor-pointer"
-          >
-            Register
-          </button>
+          <GradientButton rounded="rounded-md">
+            <button
+              type="submit"
+              className="w-full text-white py-2 rounded cursor-pointer"
+            >
+              Register
+            </button>
+          </GradientButton>
         </form>
 
         <div className="my-4 text-center text-gray-500 text-sm">or</div>

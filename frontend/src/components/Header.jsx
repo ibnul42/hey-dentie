@@ -56,7 +56,7 @@ const Header = () => {
       >
         <img src={logo} alt="Dentie Logo" className="h-10" />
         <span className="font-bold text-lg text-teal-600 whitespace-nowrap">
-          Hey Dentie
+          Dentie
         </span>
       </div>
 
