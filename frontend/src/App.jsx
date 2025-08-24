@@ -12,6 +12,7 @@ import UsersPage from "./admin/UsersPage";
 import BlogsPage from "./admin/BlogsPage";
 import SettingsPage from "./admin/SettingsPage";
 import PaymentsPage from "./admin/PaymentsPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/cancel" element={<CancelPage />} />
         <Route

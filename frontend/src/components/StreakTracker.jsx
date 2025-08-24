@@ -38,25 +38,25 @@ const StreakTracker = () => {
 
   return (
     <section className="max-w-full mx-auto px-3 md:px-6 flex flex-col gap-2 lg:gap-5">
-      <h2 className="text-xl text-center md:text-2xl font-bold text-teal-700 mb-4">
+      <h2 className="text-xl text-center md:text-2xl xl:text-5xl font-bold text-teal-700 mb-4">
         📅 Your Brushing Streak
       </h2>
 
-      <div className="bg-white rounded-xl py-6 px-2 md:px-4 shadow-md text-center">
-        <h3 className="text-xl md:text-2xl font-bold text-orange-600 mb-2 flex items-center justify-center gap-1">
+      <div className="bg-white rounded-xl py-6 xl:py-10 px-2 md:px-4 shadow-md text-center">
+        <h3 className="text-xl md:text-2xl xl:text-4xl font-bold text-orange-600 mb-2 xl:mb-4 flex items-center justify-center gap-1">
           🔥 Brushing Streak
         </h3>
 
         {loading ? (
-          <p className="text-sm text-gray-500">Checking your progress...</p>
+          <p className="text-sm md:text-xl xl:text-4xl text-gray-500">Checking your progress...</p>
         ) : (
           <div className="text-3xl md:text-5xl font-extrabold text-orange-500 mb-2 transition-all duration-300 ease-out">
             {streak}{" "}
-            <span className="text-xl">day{streak > 1 ? "'s" : ""}</span>
+            <span className="text-xl xl:text-3xl">day{streak > 1 ? "'s" : ""}</span>
           </div>
         )}
 
-        <p className="text-sm text-gray-700 font-medium">
+        <p className="text-sm xl:text-xl text-gray-700 font-medium">
           {token
             ? "Keep maintaining your dental habits daily to keep your streak and smile healthy! 😁"
             : "Log in to start tracking your dental health habits and build a healthy smile!"}

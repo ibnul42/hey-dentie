@@ -138,19 +138,19 @@ const Chat = ({
       }`}
     >
       {title && (
-        <div className="px-10">
+        <div className="px-10 xl:py-5">
           <div className="flex items-center justify-center gap-3">
-            <p className="text-lg md:text-xl">
+            <p className="text-lg md:text-xl xl:text-3xl">
               AI Dental Insights Backed by{" "}
               <span className="font-bold">Research</span>
             </p>
             <img
               src="/assets/doctor.jpg"
-              className="w-20 h-20 md:w-28 md:h-28 object-cover object-center rounded-full"
+              className="w-20 h-20 md:w-28 md:h-28 xl:w-36 xl:h-36 object-cover object-center rounded-full"
               alt="Doctor"
             />
           </div>
-          <h2 className="text-4xl font-semibold mb-4">Ask Dentie</h2>
+          <h2 className="text-4xl xl:text-6xl font-semibold mb-4">Ask Dentie</h2>
         </div>
       )}
 
@@ -162,7 +162,7 @@ const Chat = ({
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyPress}
-          className="w-full py-2 md:py-3 px-2 md:px-4 border border-gray-300 rounded-md text-lg placeholder:text-xs md:placeholder:text-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+          className="w-full py-2 md:py-3 xl:py-4 px-2 md:px-4 xl:my-2 border border-gray-300 rounded-md text-lg placeholder:text-xs md:placeholder:text-lg xl:placeholder:text-xl focus:outline-none focus:ring-2 focus:ring-teal-400"
         />
 
         {/* Mic Button */}
@@ -184,7 +184,7 @@ const Chat = ({
             onClick={handleAsk}
             disabled={loading || !question.trim() || !user}
             aria-disabled={loading || !question.trim() || !user}
-            className={`w-full py-2 md:py-3 overflow-hidden font-semibold text-sm md:text-base transition-colors
+            className={`w-full py-2 md:py-3 xl:py-5 overflow-hidden font-semibold text-sm md:text-base xl:text-lg transition-colors
     ${
       loading || !question.trim() || !user
         ? "text-teal-300 cursor-not-allowed"

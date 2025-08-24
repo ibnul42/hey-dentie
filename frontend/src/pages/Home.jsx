@@ -56,11 +56,11 @@ const Home = () => {
           <div className="max-w-full mx-auto grid grid-cols-12 items-center gap-2 justify-between px-3 md:px-6">
             {/* Left Content */}
             <div className="col-span-7 md:col-span-6 text-left space-y-1 lg:space-y-5">
-              <h1 className="text-xl md:text-2xl lg:text-4xl font-extrabold text-teal-700 space-y-2 leading-tight flex flex-col gap-1">
+              <h1 className="text-xl md:text-2xl lg:text-4xl xl:text-5xl font-extrabold text-teal-700 space-y-2 leading-tight flex flex-col gap-1">
                 <span>Your AI</span>
                 <span className="-mt-3">Dental Coach</span>
               </h1>
-              <p className="text-sm text-gray-700">
+              <p className="text-sm xl:text-xl text-gray-700">
                 Get Answers, Tips & Health Tracking in One Place
               </p>
               <Chat border={false} title={false} rounded="rounded-md" />
@@ -115,60 +115,60 @@ const Home = () => {
 
         <div
           ref={dailyTipRef}
-          className="grid grid-cols-3 gap-2 md:gap-4 lg:gap-6 xl:gap-8 px-2 md:px-6"
+          className="grid grid-cols-3 gap-2 md:gap-4 lg:gap-6 xl:gap-12 px-2"
         >
           <button
             onClick={() => setActiveComponent("chat")}
-            className={`w-full aspect-square md:aspect-auto flex flex-col items-center justify-center px-1 py-2 md:py-3 lg:py-5 xl:py-6 md:px-4 rounded-xl font-semibold transition duration-300 shadow-md cursor-pointer space-y-1 ${
+            className={`w-full aspect-square flex flex-col items-center justify-center px-1 py-2 md:py-3 lg:py-5 xl:py-6 md:px-4 rounded-xl font-semibold transition duration-300 shadow-md cursor-pointer space-y-1 ${
               activeComponent === "chat"
                 ? "bg-teal-600 text-white"
                 : "bg-white text-teal-600 hover:bg-teal-50"
             }`}
           >
-            <FaBrain className="text-lg md:text-xl lg:text-2xl xl:text-3xl" />
-            <span className="text-xs md:text-lg lg:text-xl xl:text-2xl font-extrabold whitespace-nowrap">
+            <FaBrain className="text-lg md:text-xl lg:text-2xl xl:text-9xl" />
+            <span className="text-xs md:text-lg lg:text-xl xl:text-6xl font-extrabold whitespace-nowrap">
               Ask Dentie
             </span>
-            <span className="text-[8px] md:text-sm lg:text-base text-center font-normal leading-tight">
+            <span className="text-[8px] md:text-sm lg:text-base xl:text-xl text-center font-normal leading-tight">
               Get answers to your dental questions
             </span>
           </button>
           <button
             onClick={() => setActiveComponent("tip")}
-            className={`w-full aspect-square md:aspect-auto flex flex-col items-center justify-center px-1 py-2 md:py-3 lg:py-5 xl:py-6 md:px-4 rounded-xl font-semibold transition duration-300 shadow-md cursor-pointer space-y-1 ${
+            className={`w-full aspect-square flex flex-col items-center justify-center px-1 py-2 md:py-3 lg:py-5 xl:py-6 md:px-4 rounded-xl font-semibold transition duration-300 shadow-md cursor-pointer space-y-1 ${
               activeComponent === "tip"
                 ? "bg-teal-600 text-white"
                 : "bg-white text-teal-600 hover:bg-teal-50"
             }`}
           >
-            <FaLeaf className="text-lg md:text-xl lg:text-2xl xl:text-3xl" />
-            <span className="text-xs md:text-lg lg:text-xl xl:text-2xl font-extrabold whitespace-nowrap">
+            <FaLeaf className="text-lg md:text-xl lg:text-2xl xl:text-9xl" />
+            <span className="text-xs md:text-lg lg:text-xl xl:text-6xl font-extrabold whitespace-nowrap">
               Daily Tip
             </span>
-            <span className="text-[8px] md:text-sm lg:text-base text-center font-normal leading-tight">
+            <span className="text-[8px] md:text-sm lg:text-base xl:text-xl text-center font-normal leading-tight">
               Receive dental health advice every day
             </span>
           </button>
           <button
             onClick={() => setActiveComponent("track")}
-            className={`w-full aspect-square md:aspect-auto flex flex-col items-center justify-center px-1 py-2 md:py-3 lg:py-5 xl:py-6 md:px-4 rounded-xl font-semibold transition duration-300 shadow-md cursor-pointer space-y-1 ${
+            className={`w-full aspect-square flex flex-col items-center justify-center px-1 py-2 md:py-3 lg:py-5 xl:py-6 md:px-4 rounded-xl font-semibold transition duration-300 shadow-md cursor-pointer space-y-1 ${
               activeComponent === "track"
                 ? "bg-teal-600 text-white"
                 : "bg-white text-teal-600 hover:bg-teal-50"
             }`}
           >
-            <FaChartLine className="text-lg md:text-xl lg:text-2xl xl:text-3xl" />
-            <span className="text-[10px] md:text-lg lg:text-xl xl:text-2xl font-extrabold whitespace-nowrap">
+            <FaChartLine className="text-lg md:text-xl lg:text-2xl xl:text-9xl" />
+            <span className="text-[10px] md:text-lg lg:text-xl xl:text-5xl font-extrabold whitespace-nowrap">
               Track My Health
             </span>
-            <span className="text-[8px] md:text-sm lg:text-base text-center font-normal leading-tight">
+            <span className="text-[8px] md:text-sm lg:text-base xl:text-xl text-center font-normal leading-tight">
               Monitor your brushing and flossing habits
             </span>
           </button>
         </div>
 
         {/* Render Selected Component */}
-        <div className="py-5 px-4">{renderComponent()}</div>
+        <div className="py-5 xl:py-12 px-4">{renderComponent()}</div>
       </div>
       {/* Additional Sections */}
       <div className="py-0 md:py-1 lg:py-5">

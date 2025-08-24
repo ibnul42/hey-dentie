@@ -37,8 +37,12 @@ const Header = () => {
 
   const baseMenuItems = [
     { name: "Home", path: "/" },
-    { name: "About", value: "/about" },
+    { name: "About", path: "/about" },
   ];
+
+  if (user?.role === "user" || user?.role === "admin") {
+    baseMenuItems.push({ name: "Profile", path: "/profile" });
+  }
 
   const menuItems =
     user?.role === "admin"

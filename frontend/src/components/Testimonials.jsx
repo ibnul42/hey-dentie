@@ -110,7 +110,7 @@ const Testimonials = () => {
 
   return (
     <section className="flex flex-col gap-5 px-6">
-      <h2 className="text-xl text-center md:text-2xl font-bold text-teal-700 mb-4">
+      <h2 className="text-xl text-center md:text-2xl xl:text-5xl font-bold text-teal-700 mb-4">
         💬 What Our Users Say
       </h2>
 
@@ -121,7 +121,7 @@ const Testimonials = () => {
             className="bg-white border border-teal-100 flex flex-col rounded-lg shadow-sm p-1.5 md:p-3 lg:p-5 hover:shadow-md transition h-auto overflow-hidden"
           >
             <div className="flex items-center gap-1 md:gap-3 mb-3">
-              <div className="shrink-0 w-10 h-10 md:w-20 md:h-20 rounded-full overflow-hidden">
+              <div className="shrink-0 w-10 h-10 md:w-20 md:h-20 xl:w-28 xl:h-28 rounded-full overflow-hidden">
                 <img
                   src={t.avatar}
                   alt={t.name}
@@ -129,8 +129,8 @@ const Testimonials = () => {
                 />
               </div>
               <div>
-                <p className="font-semibold text-xs md:text-base text-teal-600">{t.name}</p>
-                <div className="flex items-center text-orange-400 text-[9px] md:text-xs">
+                <p className="font-semibold text-xs md:text-base xl:text-3xl text-teal-600">{t.name}</p>
+                <div className="flex items-center text-orange-400 text-[9px] md:text-xs xl:text-sm">
                   {Array.from({ length: t.stars }, (_, i) => (
                     <FaStar key={i} className="mr-1" />
                   ))}
@@ -139,7 +139,7 @@ const Testimonials = () => {
             </div>
 
             {/* Feedback */}
-            <p className="text-gray-700 italic text-[10px] md:text-sm flex-1">
+            <p className="text-gray-700 italic text-[10px] md:text-sm xl:text-base flex-1">
               “{t.feedback}”
             </p>
           </div>
